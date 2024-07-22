@@ -163,8 +163,7 @@ aside {
 		}
 
 		h3,
-		.button,
-		.text {
+		.button .text {
 			opacity: 1;
 		}
 
