@@ -12,6 +12,14 @@ const router = createRouter({
             path: '/about',
             component: () => import('../views/About.vue')
         },
+        {
+            path: '/login',
+            component: () => import('../views/Login.vue')
+        },
+        {
+            path: '/settings',
+            component: () => import('../views/Settings.vue')
+        },
 
         // Error 404
         {
