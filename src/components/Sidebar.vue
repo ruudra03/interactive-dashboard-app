@@ -18,13 +18,17 @@
 				<span class="material-icons">home</span>
 				<span class="text">Home</span>
 			</router-link>
+
+			<router-link class="button" to="/website-data">
+				<span class="material-icons">equalizer</span>
+				<span class="text">Data</span>
+			</router-link>
+
 			<router-link class="button" to="/about">
-				<span class="material-icons">visibility</span>
+				<span class="material-icons">description</span>
 				<span class="text">About</span>
 			</router-link>
 		</div>
-
-		<div class="flex"></div>
 
 		<div class="menu">
 			<router-link class="button" to="/login">

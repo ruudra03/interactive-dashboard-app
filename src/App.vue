@@ -1,12 +1,20 @@
 <template>
 	<div class="app">
 		<Sidebar />
-		<router-view />
+		<router-view class="router-view" />
 	</div>
 </template>
 
 <script setup>
+import { onMounted } from "vue"
+import { useStore } from "vuex"
 import Sidebar from "./components/Sidebar.vue"
+
+const apiStore = useStore()
+
+onMounted(async () => {
+	await apiStore.dispatch('fetchData')
+})
 </script>
 
 
@@ -17,7 +25,7 @@ import Sidebar from "./components/Sidebar.vue"
 	--dark: #1e293b;
 	--dark-alt: #334155;
 	--light: #f1f5f9;
-	--sidebar-width: 300px;
+	--sidebar-width: 200px;
 }
 
 * {
@@ -49,6 +57,10 @@ button {
 		@media (max-width: 768px) {
 			padding-left: 6rem;
 		}
+	}
+
+	.router-view {
+		overflow: auto;
 	}
 }
 </style>

@@ -6,6 +6,9 @@ import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 
+// Vuex store
+import store from './api/store'
+
 // Router
 import router from './router'
 
@@ -17,4 +20,8 @@ const vuetify = createVuetify({
     directives
 })
 
-createApp(App).use(router).use(vuetify).mount('#app')
+const app = createApp(App)
+app.use(router)
+app.use(store)
+app.use(vuetify)
+app.mount('#app')

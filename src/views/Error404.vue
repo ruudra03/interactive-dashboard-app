@@ -1,7 +1,8 @@
 <template>
 	<main class="error404">
 		<h1>ERROR 404</h1>
-		<p>Oops! Page not found.</p>
+		<p>Whoops! Page not found.</p>
+		<p>The page you were looking for does not exist.</p>
 
 		<br />
 
