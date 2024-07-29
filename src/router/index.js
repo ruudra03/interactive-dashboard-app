@@ -1,6 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 
+const alreadyLoggedIn = () => {
+    if (localStorage.getItem('userLoggedIn')) {
+        return localStorage.getItem('userLoggedIn')
+    } else {
+        return false
+    }
+}
+
 const router = createRouter({
     history: createWebHistory(),
     routes: [
@@ -18,7 +26,25 @@ const router = createRouter({
         },
         {
             path: '/login',
-            component: () => import('../views/Login.vue')
+            component: () => import('../views/Login.vue'),
+            beforeEnter(to, from, next) {
+                if (alreadyLoggedIn()) {
+                    next('/')
+                } else {
+                    next()
+                }
+            }
+        },
+        {
+            path: '/logout',
+            component: () => import('../views/Logout.vue'),
+            beforeEnter(to, from, next) {
+                if (alreadyLoggedIn) {
+                    next()
+                } else {
+                    next('/unauthorised')
+                }
+            }
         },
         {
             path: '/settings',

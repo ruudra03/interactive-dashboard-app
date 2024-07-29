@@ -6,7 +6,7 @@
 </template>
 
 <script setup>
-import { onMounted } from "vue"
+import { onBeforeMount, onMounted, onUpdated } from "vue"
 import { useStore } from "vuex"
 import Sidebar from "./components/Sidebar.vue"
 
@@ -14,6 +14,7 @@ const apiStore = useStore()
 
 onMounted(async () => {
 	await apiStore.dispatch('fetchData')
+	apiStore.dispatch('getStoredUser')
 })
 </script>
 

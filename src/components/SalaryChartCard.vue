@@ -21,13 +21,11 @@
 
 					<v-card>
 						<v-card-actions>
-							<v-spacer></v-spacer>
-
 							<v-btn variant="text" @click="menu = false">
 								Cancel
 							</v-btn>
 							<v-btn
-								color="primary"
+								color="var(--primary)"
 								variant="text"
 								@click="applyFilters"
 							>

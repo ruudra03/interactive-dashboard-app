@@ -28,13 +28,17 @@
 				<span class="material-icons">description</span>
 				<span class="text">About</span>
 			</router-link>
-		</div>
 
-		<div class="menu">
-			<router-link class="button" to="/login">
+			<router-link class="button" to="/logout" v-if="isUserLoggedIn">
+				<span class="material-icons">logout</span>
+				<span class="text">Logout</span>
+			</router-link>
+
+			<router-link class="button" to="/login" v-else>
 				<span class="material-icons">login</span>
 				<span class="text">Login</span>
 			</router-link>
+
 			<router-link class="button" to="/settings">
 				<span class="material-icons">settings</span>
 				<span class="text">Settings</span>
@@ -44,7 +48,14 @@
 </template>
 
 <script setup>
-import { ref } from "vue"
+import { ref, computed } from "vue"
+import { useStore } from "vuex"
+
+const apiStore = useStore()
+
+const isUserLoggedIn = computed(() => {
+	return apiStore.state.isUserLoggedIn
+})
 
 const isExpanded = ref(localStorage.getItem("isExpanded") === "true")
 
@@ -52,7 +63,7 @@ const toggleMenu = () => {
 	isExpanded.value = !isExpanded.value
 
 	localStorage.setItem("isExpanded", isExpanded.value)
-};
+}
 </script>
 
 <style lang="scss" scoped>

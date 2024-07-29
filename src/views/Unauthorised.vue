@@ -1,8 +1,7 @@
 <template>
-	<main class="error404">
-		<h1>ERROR 404</h1>
-		<p>Whoops! Page not found.</p>
-		<p>The page you were looking for does not exist.</p>
+	<main class="unauthorised">
+		<h1>Unauthorised</h1>
+		<p>You are not authorised to access this page.</p>
 
 		<br />
 
