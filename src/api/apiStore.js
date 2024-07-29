@@ -1,5 +1,6 @@
 import axios from "axios"
 import { createStore } from "vuex"
+import { decrypt } from '../cryptoJS/crypto'
 
 const apiStore = createStore({
     state: {
@@ -95,7 +96,7 @@ const apiStore = createStore({
                 if (result.length) {
                     const matchedUser = result[0]
 
-                    if (matchedUser.password === password.value) {
+                    if (decrypt(matchedUser.password) === password.value) {
                         commit('loginUser', [matchedUser.username, matchedUser.role])
                         commit('userHasLoggedIn', [matchedUser.username, matchedUser.role])
                         console.log(matchedUser.username + ' has logged in.')

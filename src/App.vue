@@ -29,6 +29,7 @@ onMounted(async () => {
 	--dark: #1e293b;
 	--dark-alt: #334155;
 	--light: #f1f5f9;
+	--error: #ff0062;
 	--sidebar-width: 200px;
 }
 

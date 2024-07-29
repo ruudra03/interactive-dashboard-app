@@ -2,8 +2,16 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 
 const alreadyLoggedIn = () => {
-    if (localStorage.getItem('userLoggedIn')) {
-        return localStorage.getItem('userLoggedIn')
+    if (localStorage.getItem('isUserLoggedIn')) {
+        return true
+    } else {
+        return false
+    }
+}
+
+const isAdmin = () => {
+    if (localStorage.getItem('role') === 'admin') {
+        return true
     } else {
         return false
     }
@@ -28,8 +36,8 @@ const router = createRouter({
             path: '/login',
             component: () => import('../views/Login.vue'),
             beforeEnter(to, from, next) {
-                if (!alreadyLoggedIn()) {
-                    next('/')
+                if (alreadyLoggedIn()) {
+                    next('/unauthorised')
                 } else {
                     next()
                 }
@@ -39,7 +47,18 @@ const router = createRouter({
             path: '/logout',
             component: () => import('../views/Logout.vue'),
             beforeEnter(to, from, next) {
-                if (alreadyLoggedIn()) {
+                if (!alreadyLoggedIn()) {
+                    next('/unauthorised')
+                } else {
+                    next()
+                }
+            }
+        },
+        {
+            path: '/add-user',
+            component: () => import('../views/AddUser.vue'),
+            beforeEnter(to, from, next) {
+                if (isAdmin()) {
                     next()
                 } else {
                     next('/unauthorised')

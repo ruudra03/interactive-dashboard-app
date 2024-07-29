@@ -39,6 +39,11 @@
 				<span class="text">Login</span>
 			</router-link>
 
+			<router-link class="button" to="/add-user" v-if="isAdmin">
+				<span class="material-icons">person_add</span>
+				<span class="text">Add User</span>
+			</router-link>
+
 			<router-link class="button" to="/settings">
 				<span class="material-icons">settings</span>
 				<span class="text">Settings</span>
@@ -55,6 +60,14 @@ const apiStore = useStore()
 
 const isUserLoggedIn = computed(() => {
 	return apiStore.state.isUserLoggedIn
+})
+
+const isAdmin = computed(() => {
+	if (apiStore.state.activeUser[1] === 'admin') {
+		return true
+	} else {
+		return false
+	}
 })
 
 const isExpanded = ref(localStorage.getItem("isExpanded") === "true")
