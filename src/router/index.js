@@ -28,7 +28,7 @@ const router = createRouter({
             path: '/login',
             component: () => import('../views/Login.vue'),
             beforeEnter(to, from, next) {
-                if (alreadyLoggedIn()) {
+                if (!alreadyLoggedIn()) {
                     next('/')
                 } else {
                     next()
@@ -39,7 +39,7 @@ const router = createRouter({
             path: '/logout',
             component: () => import('../views/Logout.vue'),
             beforeEnter(to, from, next) {
-                if (alreadyLoggedIn) {
+                if (alreadyLoggedIn()) {
                     next()
                 } else {
                     next('/unauthorised')
@@ -51,11 +51,19 @@ const router = createRouter({
             component: () => import('../views/Settings.vue')
         },
 
+        // Unauthorised
+        {
+            path: '/unauthorised',
+            component: () => import('../views/Unauthorised.vue')
+        },
+
         // Error 404
         {
             path: '/:catchAll(.*)',
             component: () => import('../views/Error404.vue')
         }
+
+
     ]
 
 })

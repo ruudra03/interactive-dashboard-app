@@ -10,8 +10,14 @@
 									<h1>Login</h1>
 								</v-col>
 								<v-col>
-									<div class="error">
-										{{ errorMsg }}
+									<div class="error" v-if="isInvalid">
+										{{ invalidMsg }}
+									</div>
+									<div class="error" v-else-if="isError">
+										<p>
+											Currently unable to get users. Try
+											again later.
+										</p>
 									</div>
 								</v-col>
 							</v-row>
@@ -66,21 +72,26 @@ const apiStore = useStore()
 const username = ref('')
 const password = ref('')
 
+const isInvalid = computed(() => {
+	return apiStore.state.isInvalidInputs
+})
+
+const invalidMsg = computed(() => {
+	return apiStore.state.isInvalidMsg
+})
+
 const isError = computed(() => {
 	return apiStore.state.isFailed
 })
 
-const errorMsg = computed(() => {
-	if (isError) {
-		return "Unable to login at this time. Try agian later."
-	} else {
-		return apiStore.state.invalidMsg
-	}
-
-})
-
 const login = async () => {
-	await apiStore.dispatch('loginUser', { username: username, password: password })
+	const result = await apiStore.dispatch('loginUser', { username: username, password: password })
+
+	if (result) {
+		router.replace({ path: '/' })
+	} else {
+		password.value = ''
+	}
 }
 </script>
 

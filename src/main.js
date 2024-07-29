@@ -7,7 +7,7 @@ import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 
 // Vuex store
-import store from './api/store'
+import store from './api/apiStore'
 
 // Router
 import router from './router'

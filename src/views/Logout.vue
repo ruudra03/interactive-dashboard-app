@@ -1,3 +1,5 @@
+<template></template>
+
 <script setup>
 import { onMounted } from "vue"
 import { useRouter } from "vue-router"
@@ -12,6 +14,7 @@ onMounted(() => {
 		router.go(-1)
 	} else {
 		apiStore.dispatch('logoutUser')
+		router.replace({ path: '/' })
 	}
 })
 </script>

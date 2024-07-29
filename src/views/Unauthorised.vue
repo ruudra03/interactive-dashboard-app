@@ -5,8 +5,6 @@
 
 		<br />
 
-		<p>Click&nbsp;</p>
-		<router-link to="/">here</router-link>
-		<p>&nbsp;to return home</p>
+		<router-link to="/">Return home</router-link>
 	</main>
 </template>

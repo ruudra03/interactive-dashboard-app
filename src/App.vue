@@ -14,7 +14,10 @@ const apiStore = useStore()
 
 onMounted(async () => {
 	await apiStore.dispatch('fetchData')
-	apiStore.dispatch('getStoredUser')
+
+	if (localStorage.getItem('isUserLoggedIn')) {
+		apiStore.dispatch('loadStoredUser')
+	}
 })
 </script>
 

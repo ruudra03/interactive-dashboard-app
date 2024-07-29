@@ -1,7 +1,10 @@
 <template>
 	<main class="home">
 		<h1>Dashboard</h1>
-		<v-container class="home-container" v-if="!isLoading">
+
+		<p v-if="isLoading">Loading...</p>
+		<p v-else-if="isError">Error! Unable to connect to the server.</p>
+		<v-container class="home-container" v-else>
 			<v-row>
 				<v-col>
 					<SalaryChartCard />
@@ -9,15 +12,13 @@
 				<v-col></v-col>
 			</v-row>
 		</v-container>
-		<p v-else>Loading...</p>
-		<p v-if="isError">Error! Unable to connect to the server.</p>
 	</main>
 </template>
 
 <script setup>
 import SalaryChartCard from "../components/SalaryChartCard.vue"
 import { useStore } from "vuex"
-import { computed, onMounted } from "vue"
+import { computed, onMounted, onUpdated } from "vue"
 
 const apiStore = useStore()
 
