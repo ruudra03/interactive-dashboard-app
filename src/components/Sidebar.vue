@@ -29,6 +29,11 @@
 				<span class="text">About</span>
 			</router-link>
 
+			<router-link class="button" to="/add-user" v-if="isAdmin">
+				<span class="material-icons">person_add</span>
+				<span class="text">Add User</span>
+			</router-link>
+
 			<router-link class="button" to="/logout" v-if="isUserLoggedIn">
 				<span class="material-icons">logout</span>
 				<span class="text">Logout</span>
@@ -37,11 +42,6 @@
 			<router-link class="button" to="/login" v-else>
 				<span class="material-icons">login</span>
 				<span class="text">Login</span>
-			</router-link>
-
-			<router-link class="button" to="/add-user" v-if="isAdmin">
-				<span class="material-icons">person_add</span>
-				<span class="text">Add User</span>
 			</router-link>
 
 			<router-link class="button" to="/settings">
