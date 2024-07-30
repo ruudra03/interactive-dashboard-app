@@ -1,6 +1,6 @@
 <template>
 	<v-card elevation="10">
-		<DataTable />
+		<DataTable :height="200" />
 	</v-card>
 </template>
 

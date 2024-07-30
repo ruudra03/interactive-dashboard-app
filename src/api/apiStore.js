@@ -99,7 +99,7 @@ const apiStore = createStore({
                     if (decrypt(matchedUser.password) === password.value) {
                         commit('loginUser', [matchedUser.username, matchedUser.role])
                         commit('userHasLoggedIn', [matchedUser.username, matchedUser.role])
-                        console.log(matchedUser.username + ' has logged in.')
+                        console.log("\'" + matchedUser.username + '\' has logged in.')
                         return true
                     } else {
                         commit('incorrectPwd')
@@ -124,7 +124,7 @@ const apiStore = createStore({
             if (username && role) {
                 commit('loginUser', [username, role])
 
-                console.log('user ' + username + ' loaded.')
+                console.log('user \'' + username + '\' loaded.')
             } else {
                 localStorage.removeItem('isUserLoggedIn')
             }

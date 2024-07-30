@@ -2,73 +2,18 @@
 	<v-card class="mx-auto my-2" elevation="10">
 		<v-card-item>
 			<v-card-title> Salary Distribution </v-card-title>
-
-			<template v-slot:append>
-				<v-menu
-					v-model="menu"
-					:close-on-content-click="false"
-					location="start"
-				>
-					<template v-slot:activator="{ props }">
-						<v-btn
-							:class="filters ? 'filters-applied' : ''"
-							color="var(--dark-alt)"
-							v-bind="props"
-						>
-							<span class="material-icons">tune</span>
-						</v-btn>
-					</template>
-
-					<v-card>
-						<v-card-actions>
-							<v-btn variant="text" @click="menu = false">
-								Cancel
-							</v-btn>
-							<v-btn
-								color="var(--primary)"
-								variant="text"
-								@click="applyFilters"
-							>
-								Apply
-							</v-btn>
-							<v-btn
-								color="red"
-								variant="text"
-								@click="removeFilters"
-							>
-								Remove
-							</v-btn>
-						</v-card-actions>
-					</v-card>
-				</v-menu>
-			</template>
+			<canvas id="salary-chart"></canvas>
 		</v-card-item>
-		<canvas id="salary-chart"></canvas>
 	</v-card>
 </template>
 
 <script setup>
-import { computed, onMounted, ref } from "vue"
+import { color } from '../utils/colorsLibrary'
+import { computed, onMounted } from "vue"
 import ChartJS from "chart.js/auto"
 import { useStore } from "vuex"
 
 const apiStore = useStore()
-
-const fav = ref(true)
-const menu = ref(false)
-const filters = ref(false)
-const message = ref(false)
-const hints = ref(true)
-
-const applyFilters = () => {
-	menu.value = false
-	filters.value = true
-}
-
-const removeFilters = () => {
-	menu.value = false
-	filters.value = false
-}
 
 // ChartJS
 const companySalaries = computed(() => {
@@ -107,9 +52,7 @@ const companyDepartmentsWithPositions = computed(() => {
 	const uniqueDepartmentsWithPositions = {}
 
 	for (const d of uniqueDepartments) {
-		const result = JSON.parse(JSON.stringify(apiStore.state.data))
-
-		const resultDepartments = result.filter((e) => {
+		const resultDepartments = apiStore.state.data.filter((e) => {
 			return e.department === d
 		})
 
@@ -146,9 +89,9 @@ const uniqueSalaryCounter = (employees, companySalaries) => {
 
 	let counter = []
 
-	for (const s in companySalaries.value) {
-		if (companySalaries.value[s] in uniqueSalaries) {
-			counter.push(uniqueSalaries[companySalaries.value[s]])
+	for (const s in companySalaries) {
+		if (companySalaries[s] in uniqueSalaries) {
+			counter.push(uniqueSalaries[companySalaries[s]])
 		} else {
 			counter.push(0)
 		}
@@ -164,7 +107,7 @@ const salaryDatasets = computed(() => {
 		const employees = apiStore.state.data.filter((e) => {
 			return e.position === p
 		})
-		allDatasets[p] = uniqueSalaryCounter(employees, companySalaries)
+		allDatasets[p] = uniqueSalaryCounter(employees, companySalaries.value)
 	}
 
 	return allDatasets
@@ -187,7 +130,7 @@ const chartConfig = {
 		responsive: true,
 		interaction: {
 			intersect: false,
-			mode: 'dataset'
+			mode: 'x'
 		},
 		scales: {
 			x: {
@@ -200,10 +143,11 @@ const chartConfig = {
 	}
 }
 
-const addDataset = (position, dataset, department) => {
+const addDataset = (position, dataset, department, bgColor) => {
 	const newDataset = {
 		label: position,
 		data: dataset,
+		backgroundColor: bgColor,
 		stack: department
 	}
 
@@ -217,8 +161,10 @@ onMounted(() => {
 
 	for (const d in chartDatasets) {
 		for (const p of chartDatasets[d]) {
+			const positionIndex = companyPositions.value.indexOf(p)
+			const c = color(positionIndex)
 			const dataset = chartDatasetsData[p]
-			addDataset(p, dataset, d)
+			addDataset(p, dataset, d, c)
 		}
 	}
 

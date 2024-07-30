@@ -15,17 +15,7 @@
 								single-line
 							></v-text-field>
 						</template>
-						<v-data-table
-							v-model:page="page"
-							:headers="headers"
-							:items="data"
-							:search="search"
-							:items-per-page="itemsPerPage"
-							height="450"
-							item-value="id"
-							multi-sort
-						>
-						</v-data-table>
+						<DataTable :height="450" />
 					</v-card>
 				</v-col>
 			</v-row>
@@ -34,6 +24,7 @@
 </template>
 
 <script setup>
+import DataTable from '../components/DataTable.vue'
 import { computed, ref } from "vue"
 import { useStore } from "vuex"
 
