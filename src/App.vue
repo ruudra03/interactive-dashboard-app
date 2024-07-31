@@ -6,7 +6,7 @@
 </template>
 
 <script setup>
-import { onBeforeMount, onMounted, onUpdated } from "vue"
+import { onMounted } from "vue"
 import { useStore } from "vuex"
 import Sidebar from "./components/Sidebar.vue"
 
@@ -19,9 +19,7 @@ onMounted(async () => {
 		apiStore.dispatch('loadStoredUser')
 	}
 
-	// console.log(apiStore.state.isExcludeInactive)
 	apiStore.dispatch('loadStoredFilters')
-	// console.log(apiStore.state.isExcludeInactive)
 })
 </script>
 
