@@ -1,7 +1,18 @@
 <template>
 	<v-card flat>
+		<template v-slot:text v-if="showSearch">
+			<v-text-field
+				v-model="search"
+				label="Search"
+				prepend-inner-icon="mdi-magnify"
+				variant="outlined"
+				hide-details
+				single-line
+			></v-text-field>
+		</template>
 		<v-data-table
 			v-model:page="page"
+			:search="search"
 			:headers="headers"
 			:items="data"
 			:items-per-page="itemsPerPage"
@@ -19,9 +30,11 @@ import { useStore } from "vuex"
 
 const apiStore = useStore()
 
-const props = defineProps(['height'])
+const props = defineProps(['height', 'showSearch', 'search'])
 
 const tableHeight = ref(props.height)
+const showSearch = ref(props.showSearch)
+const search = ref(props.search)
 
 const headers = [
 	{ title: 'ID', align: 'start', sortable: false, key: 'id' },
