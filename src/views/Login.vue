@@ -1,62 +1,66 @@
 <template>
 	<main class="login">
-		<v-row justify="center">
-			<v-col>
-				<v-card>
-					<form @submit.prevent="login">
-						<v-container fill-height>
-							<v-row>
-								<v-col cols="12">
-									<h1>Login</h1>
-								</v-col>
-								<v-col>
-									<div class="error" v-if="isInvalid">
-										{{ invalidMsg }}
-									</div>
-									<div class="error" v-else-if="isError">
-										<p>
-											Currently unable to get users. Try
-											again later.
-										</p>
-									</div>
-								</v-col>
-							</v-row>
-							<v-row>
-								<v-col>
-									<label>Username:</label>
-									<input
-										type="text"
-										required
-										v-model="username"
-									/>
-								</v-col>
-							</v-row>
-							<v-row>
-								<v-col>
-									<label>Password:</label>
-									<input
-										type="password"
-										required
-										v-model="password"
-									/>
-								</v-col>
-							</v-row>
-							<v-row>
-								<v-col>
-									<v-btn
-										class="v-button"
-										color="var(--dark-alt)"
-										type="submit"
-									>
-										Login
-									</v-btn>
-								</v-col>
-							</v-row>
-						</v-container>
-					</form>
-				</v-card>
-			</v-col>
-		</v-row>
+		<v-container>
+			<v-row>
+				<v-spacer></v-spacer>
+				<v-col>
+					<v-card min-width="500">
+						<form @submit.prevent="login">
+							<v-container fill-height>
+								<v-row>
+									<v-col cols="12">
+										<h1>Login</h1>
+									</v-col>
+									<v-col>
+										<div class="error" v-if="isInvalid">
+											{{ invalidMsg }}
+										</div>
+										<div class="error" v-else-if="isError">
+											<p>
+												Currently unable to get users.
+												Try again later.
+											</p>
+										</div>
+									</v-col>
+								</v-row>
+								<v-row>
+									<v-col>
+										<label>Username:</label>
+										<input
+											type="text"
+											required
+											v-model="username"
+										/>
+									</v-col>
+								</v-row>
+								<v-row>
+									<v-col>
+										<label>Password:</label>
+										<input
+											type="password"
+											required
+											v-model="password"
+										/>
+									</v-col>
+								</v-row>
+								<v-row>
+									<v-col>
+										<v-btn
+											class="v-button"
+											color="var(--dark-alt)"
+											type="submit"
+										>
+											Login
+										</v-btn>
+									</v-col>
+								</v-row>
+							</v-container>
+						</form>
+					</v-card>
+				</v-col>
+				<v-spacer></v-spacer>
+			</v-row>
+		</v-container>
 	</main>
 </template>
 

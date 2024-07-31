@@ -24,11 +24,6 @@
 				<span class="text">Data</span>
 			</router-link>
 
-			<router-link class="button" to="/about">
-				<span class="material-icons">description</span>
-				<span class="text">About</span>
-			</router-link>
-
 			<router-link class="button" to="/add-user" v-if="isAdmin">
 				<span class="material-icons">person_add</span>
 				<span class="text">Add User</span>
@@ -42,11 +37,6 @@
 			<router-link class="button" to="/login" v-else>
 				<span class="material-icons">login</span>
 				<span class="text">Login</span>
-			</router-link>
-
-			<router-link class="button" to="/settings">
-				<span class="material-icons">settings</span>
-				<span class="text">Settings</span>
 			</router-link>
 		</div>
 	</aside>

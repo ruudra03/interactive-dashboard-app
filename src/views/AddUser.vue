@@ -1,74 +1,78 @@
 <template>
 	<main class="add-user">
-		<v-row justify="center">
-			<v-col>
-				<v-card>
-					<form @submit.prevent="addUser">
-						<v-container fill-height>
-							<v-row>
-								<v-col cols="12">
-									<h1>Create new user</h1>
-								</v-col>
-								<v-col>
-									<div class="error" v-if="isInvalid">
-										{{ invalidMsg }}
-									</div>
-									<div class="error" v-else-if="isError">
-										<p>
-											Currently unable to add users. Try
-											again later.
-										</p>
-									</div>
-									<div class="success" v-if="isCreated">
-										<p>New user added successfully.</p>
-									</div>
-								</v-col>
-							</v-row>
-							<v-row>
-								<v-col>
-									<label>Choose Username:</label>
-									<input
-										type="text"
-										required
-										v-model="username"
-									/>
-								</v-col>
-							</v-row>
-							<v-row>
-								<v-col>
-									<label>Create Password:</label>
-									<input
-										type="password"
-										required
-										v-model="password"
-									/>
-								</v-col>
-							</v-row>
-							<v-row>
-								<v-col>
-									<label>Select Role:</label>
-									<select v-model="role">
-										<option value="user">User</option>
-										<option value="admin">Admin</option>
-									</select>
-								</v-col>
-							</v-row>
-							<v-row>
-								<v-col>
-									<v-btn
-										class="v-button"
-										color="var(--dark-alt)"
-										type="submit"
-									>
-										Add User
-									</v-btn>
-								</v-col>
-							</v-row>
-						</v-container>
-					</form>
-				</v-card>
-			</v-col>
-		</v-row>
+		<v-container>
+			<v-row>
+				<v-spacer></v-spacer>
+				<v-col cols="auto">
+					<v-card min-width="500">
+						<form @submit.prevent="addUser">
+							<v-container fill-height>
+								<v-row>
+									<v-col cols="12">
+										<h1>Create new user</h1>
+									</v-col>
+									<v-col>
+										<div class="error" v-if="isInvalid">
+											{{ invalidMsg }}
+										</div>
+										<div class="error" v-else-if="isError">
+											<p>
+												Currently unable to add users.
+												Try again later.
+											</p>
+										</div>
+										<div class="success" v-if="isCreated">
+											<p>New user added successfully.</p>
+										</div>
+									</v-col>
+								</v-row>
+								<v-row>
+									<v-col>
+										<label>Choose Username:</label>
+										<input
+											type="text"
+											required
+											v-model="username"
+										/>
+									</v-col>
+								</v-row>
+								<v-row>
+									<v-col>
+										<label>Create Password:</label>
+										<input
+											type="password"
+											required
+											v-model="password"
+										/>
+									</v-col>
+								</v-row>
+								<v-row>
+									<v-col>
+										<label>Select Role:</label>
+										<select v-model="role">
+											<option value="user">User</option>
+											<option value="admin">Admin</option>
+										</select>
+									</v-col>
+								</v-row>
+								<v-row>
+									<v-col>
+										<v-btn
+											class="v-button"
+											color="var(--dark-alt)"
+											type="submit"
+										>
+											Add User
+										</v-btn>
+									</v-col>
+								</v-row>
+							</v-container>
+						</form>
+					</v-card>
+				</v-col>
+				<v-spacer></v-spacer>
+			</v-row>
+		</v-container>
 	</main>
 </template>
 

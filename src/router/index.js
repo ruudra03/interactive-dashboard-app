@@ -29,10 +29,6 @@ const router = createRouter({
             component: () => import('../views/WebsiteData.vue')
         },
         {
-            path: '/about',
-            component: () => import('../views/About.vue')
-        },
-        {
             path: '/login',
             component: () => import('../views/Login.vue'),
             beforeEnter(to, from, next) {
@@ -64,10 +60,6 @@ const router = createRouter({
                     next('/unauthorised')
                 }
             }
-        },
-        {
-            path: '/settings',
-            component: () => import('../views/Settings.vue')
         },
 
         // Unauthorised
