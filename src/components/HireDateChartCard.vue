@@ -1,14 +1,28 @@
 <template>
 	<v-card class="mx-auto my-2" elevation="10">
 		<v-card-item>
-			<v-card-title> Hiring Date Distribution </v-card-title>
+			<v-row>
+				<v-col cols="auto">
+					<v-card-title> Hiring Date Distribution </v-card-title>
+				</v-col>
+				<v-spacer></v-spacer>
+				<v-col cols="auto">
+					<v-btn
+						density="compact"
+						@click="downloadChartImage"
+						elevation="0"
+					>
+						Download
+					</v-btn>
+				</v-col>
+			</v-row>
 			<canvas id="hire-date-chart"></canvas>
 		</v-card-item>
 	</v-card>
 </template>
 
 <script setup>
-import { computed, onMounted } from "vue"
+import { computed, onMounted, ref } from "vue"
 import { color } from '../utils/colorsLibrary'
 import ChartJS from "chart.js/auto"
 import { useStore } from "vuex"
@@ -16,6 +30,9 @@ import { useStore } from "vuex"
 const apiStore = useStore()
 
 // ChartJS
+const chartImage = ref('')
+const isAnimationComplete = ref(false)
+
 const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 const monthsValue = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
 const currentYear = new Date().getFullYear()
@@ -96,6 +113,11 @@ const chartConfig = {
 		interaction: {
 			intersect: false,
 			mode: 'dataset'
+		},
+		animation: {
+			onComplete: function () {
+				isAnimationComplete.value = true
+			}
 		}
 	}
 }
@@ -109,7 +131,12 @@ const addDataset = (year, dataset) => {
 	chartData.datasets.push(newDataset)
 }
 
+let hireDateChart
+
 onMounted(() => {
+	chartImage.value = ''
+	isAnimationComplete.value = false
+
 	const chartDatasets = companyYears.value
 
 	const chartDatasetsData = hireDateDatasets.value
@@ -119,6 +146,15 @@ onMounted(() => {
 		addDataset(chartDatasets[y], dataset)
 	}
 
-	new ChartJS(document.getElementById('hire-date-chart'), chartConfig)
+	hireDateChart = new ChartJS(document.getElementById('hire-date-chart'), chartConfig)
 })
+
+const downloadChartImage = () => {
+	if (isAnimationComplete.value && hireDateChart) {
+		chartImage.value = hireDateChart.toBase64Image()
+	}
+	if (chartImage.value !== '') {
+		window.open(chartImage.value, 'Chart Image')
+	}
+}
 </script>

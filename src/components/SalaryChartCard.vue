@@ -1,7 +1,22 @@
 <template>
 	<v-card class="mx-auto my-2" elevation="10">
 		<v-card-item>
-			<v-card-title> Salary Distribution </v-card-title>
+			<v-row>
+				<v-col cols="auto">
+					<v-card-title> Salary Distribution </v-card-title>
+				</v-col>
+				<v-spacer></v-spacer>
+				<v-col cols="auto">
+					<v-btn
+						density="compact"
+						@click="downloadChartImage"
+						elevation="0"
+					>
+						Download
+					</v-btn>
+				</v-col>
+			</v-row>
+
 			<canvas id="salary-chart"></canvas>
 		</v-card-item>
 	</v-card>
@@ -9,13 +24,16 @@
 
 <script setup>
 import { color } from '../utils/colorsLibrary'
-import { computed, onMounted } from "vue"
+import { computed, onMounted, ref } from "vue"
 import ChartJS from "chart.js/auto"
 import { useStore } from "vuex"
 
 const apiStore = useStore()
 
 // ChartJS
+const chartImage = ref('')
+const isAnimationComplete = ref(false)
+
 const companySalaries = computed(() => {
 	const allSalaries = apiStore.state.data.map((e) => {
 		return e.salary
@@ -139,6 +157,11 @@ const chartConfig = {
 			y: {
 				stacked: true
 			}
+		},
+		animation: {
+			onComplete: function () {
+				isAnimationComplete.value = true
+			}
 		}
 	}
 }
@@ -154,7 +177,12 @@ const addDataset = (position, dataset, department, bgColor) => {
 	chartData.datasets.push(newDataset)
 }
 
+let salaryChart
+
 onMounted(() => {
+	chartImage.value = ''
+	isAnimationComplete.value = false
+
 	const chartDatasets = companyDepartmentsWithPositions.value
 
 	const chartDatasetsData = salaryDatasets.value
@@ -168,8 +196,17 @@ onMounted(() => {
 		}
 	}
 
-	new ChartJS(document.getElementById('salary-chart'), chartConfig)
+	salaryChart = new ChartJS(document.getElementById('salary-chart'), chartConfig)
 })
+
+const downloadChartImage = () => {
+	if (isAnimationComplete.value && salaryChart) {
+		chartImage.value = salaryChart.toBase64Image()
+	}
+	if (chartImage.value !== '') {
+		window.open(chartImage.value, 'Chart Image')
+	}
+}
 </script>
 
 <style lang="scss" scoped>

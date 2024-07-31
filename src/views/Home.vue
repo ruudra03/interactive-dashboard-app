@@ -2,10 +2,11 @@
 	<main class="home">
 		<v-container class="home-container">
 			<v-row>
-				<v-col>
+				<v-col cols="auto">
 					<h1>Dashboard</h1>
 				</v-col>
-				<v-col cols="1">
+				<v-spacer></v-spacer>
+				<v-col cols="auto">
 					<DashboardFilter />
 				</v-col>
 			</v-row>
