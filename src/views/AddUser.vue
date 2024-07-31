@@ -34,6 +34,13 @@
 											required
 											v-model="username"
 										/>
+										<v-tooltip
+											activator="parent"
+											location="start"
+										>
+											Username must be at least 3
+											characters long.
+										</v-tooltip>
 									</v-col>
 								</v-row>
 								<v-row>
@@ -44,6 +51,13 @@
 											required
 											v-model="password"
 										/>
+										<v-tooltip
+											activator="parent"
+											location="start"
+										>
+											Password must be at least 5
+											characters long.
+										</v-tooltip>
 									</v-col>
 								</v-row>
 								<v-row>
