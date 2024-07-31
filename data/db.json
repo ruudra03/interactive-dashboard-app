@@ -11,6 +11,12 @@
       "username": "user1",
       "password": "U2FsdGVkX1+z/areYWlenee5ZtvaOxQaHb1VsvcvvpI=",
       "role": "user"
+    },
+    {
+      "id": "592d24d7-d0cc-45f5-82b4-b1b68b398b46",
+      "username": "testuser",
+      "password": "U2FsdGVkX1/HUwyt2u4YNb66El0DG/93IoAEP5/wo58=",
+      "role": "user"
     }
   ],
   "data": [
