@@ -13,7 +13,9 @@ const apiStore = createStore({
         activeUser: [],
         isInvalidInputs: false,
         isInvalidMsg: '',
-        isFailed: false
+        isFailed: false,
+        // filters
+        isExcludeInactive: false
     },
     mutations: {
         startLoading(state) {
@@ -64,8 +66,11 @@ const apiStore = createStore({
             localStorage.removeItem('isUserLoggedIn')
             localStorage.removeItem('username')
             localStorage.removeItem('role')
+        },
+        toggleIsExcludeInactive(state) {
+            state.isExcludeInactive = !state.isExcludeInactive
+            localStorage.setItem('isExcludeInactive', state.isExcludeInactive)
         }
-
     },
     actions: {
         async fetchData({ commit }) {
@@ -132,6 +137,11 @@ const apiStore = createStore({
         logoutUser({ commit }) {
             commit('logoutUser')
             console.log('user logged out.')
+        },
+        loadStoredFilters({ commit }) {
+            if (localStorage.getItem('isExcludeInactive') === "true") {
+                commit('toggleIsExcludeInactive')
+            }
         }
     },
     strict: true

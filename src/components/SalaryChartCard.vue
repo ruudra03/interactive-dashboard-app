@@ -17,8 +17,11 @@
 						</v-tooltip>
 					</v-card-title>
 				</v-col>
+				<v-col cols="auto" v-if="isfilterApplied" align-self="center">
+					(Filters applied)
+				</v-col>
 				<v-spacer></v-spacer>
-				<v-col cols="auto">
+				<v-col cols="auto" align-self="center">
 					<v-btn
 						density="compact"
 						@click="downloadChartImage"
@@ -39,11 +42,35 @@
 
 <script setup>
 import { color } from '../utils/colorsLibrary'
-import { computed, onMounted, ref } from "vue"
+import { computed, onMounted, ref, watch } from "vue"
 import ChartJS from "chart.js/auto"
 import { useStore } from "vuex"
 
 const apiStore = useStore()
+
+// Filters
+const isfilterApplied = ref(false)
+
+const isExcludeInactive = computed(() => {
+	return apiStore.state.isExcludeInactive
+})
+
+// Data
+const allData = computed(() => {
+	return JSON.parse(JSON.stringify(apiStore.state.data))
+})
+
+const filteredData = computed(() => {
+	let data = allData.value
+
+	if (isExcludeInactive.value === true) {
+		data = data.filter((e) => {
+			return e.status === "Active"
+		})
+	}
+
+	return data
+})
 
 // ChartJS
 const chartImage = ref('')
@@ -137,7 +164,7 @@ const salaryDatasets = computed(() => {
 	const allDatasets = {}
 
 	for (const p of companyPositions.value) {
-		const employees = apiStore.state.data.filter((e) => {
+		const employees = filteredData.value.filter((e) => {
 			return e.position === p
 		})
 		allDatasets[p] = uniqueSalaryCounter(employees, companySalaries.value)
@@ -192,12 +219,8 @@ const addDataset = (position, dataset, department, bgColor) => {
 	chartData.datasets.push(newDataset)
 }
 
-let salaryChart
-
-onMounted(() => {
-	chartImage.value = ''
-	isAnimationComplete.value = false
-
+const mountDatasets = () => {
+	chartData.datasets = []
 	const chartDatasets = companyDepartmentsWithPositions.value
 
 	const chartDatasetsData = salaryDatasets.value
@@ -210,6 +233,15 @@ onMounted(() => {
 			addDataset(p, dataset, d, c)
 		}
 	}
+}
+
+let salaryChart
+
+onMounted(() => {
+	chartImage.value = ''
+	isAnimationComplete.value = false
+
+	mountDatasets()
 
 	salaryChart = new ChartJS(document.getElementById('salary-chart'), chartConfig)
 })
@@ -222,6 +254,16 @@ const downloadChartImage = () => {
 		window.open(chartImage.value, 'Chart Image')
 	}
 }
+
+watch(isExcludeInactive, (curr) => {
+	if (curr) {
+		isfilterApplied.value = true
+	} else {
+		isfilterApplied.value = false
+	}
+	mountDatasets()
+	salaryChart.update()
+})
 </script>
 
 <style lang="scss" scoped>

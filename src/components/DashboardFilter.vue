@@ -21,55 +21,33 @@
 						label="Exclude inactive employees"
 						hide-details
 						class="px-4"
+						@click="toggleIsExcludeInactive"
 					></v-switch>
 				</v-list-item>
 			</v-list>
-			<v-card-actions>
-				<v-spacer></v-spacer>
-				<v-btn variant="text" @click="menu = false"> Cancel </v-btn>
-				<v-btn
-					color="var(--primary)"
-					variant="text"
-					@click="applyFilters"
-				>
-					Apply
-				</v-btn>
-				<v-btn color="red" variant="text" @click="removeFilters">
-					Remove
-				</v-btn>
-			</v-card-actions>
 		</v-card>
 	</v-menu>
 </template>
 
 <script setup>
-import { ref } from "vue"
+import { computed, onMounted, ref } from "vue"
+import { useStore } from "vuex"
+
+const apiStore = useStore()
 
 const menu = ref(false)
 const filters = ref(false)
+const isExcludeInactive = computed(() => {
+	return apiStore.state.isExcludeInactive
+})
 
-const isExcludeInactive = ref(false)
-
-const applyFilters = () => {
-	menu.value = false
-	filters.value = true
+const toggleIsExcludeInactive = () => {
+	apiStore.commit('toggleIsExcludeInactive')
 }
-
-const removeFilters = () => {
-	menu.value = false
-	filters.value = false
-}
-
 </script>
 
 <style lang="scss" scoped>
 .filter-button {
 	color: white;
-}
-
-.filters-applied {
-	.material-icons {
-		color: var(--primary);
-	}
 }
 </style>

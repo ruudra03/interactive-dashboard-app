@@ -18,6 +18,10 @@ onMounted(async () => {
 	if (localStorage.getItem('isUserLoggedIn')) {
 		apiStore.dispatch('loadStoredUser')
 	}
+
+	// console.log(apiStore.state.isExcludeInactive)
+	apiStore.dispatch('loadStoredFilters')
+	// console.log(apiStore.state.isExcludeInactive)
 })
 </script>
 
