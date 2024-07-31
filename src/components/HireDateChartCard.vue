@@ -3,7 +3,17 @@
 		<v-card-item>
 			<v-row>
 				<v-col cols="auto">
-					<v-card-title> Hiring Date Distribution </v-card-title>
+					<v-card-title>
+						Hiring Date Distribution
+						<v-tooltip
+							activator="parent"
+							location="bottom"
+							max-width="400"
+						>
+							Chart plots number of employees hired every month
+							for all the years of the company.
+						</v-tooltip>
+					</v-card-title>
 				</v-col>
 				<v-spacer></v-spacer>
 				<v-col cols="auto">
@@ -13,6 +23,9 @@
 						elevation="0"
 					>
 						Download
+						<v-tooltip activator="parent" location="bottom">
+							Opens a PNG image in new tab/window
+						</v-tooltip>
 					</v-btn>
 				</v-col>
 			</v-row>

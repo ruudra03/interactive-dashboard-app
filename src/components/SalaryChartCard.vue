@@ -3,7 +3,19 @@
 		<v-card-item>
 			<v-row>
 				<v-col cols="auto">
-					<v-card-title> Salary Distribution </v-card-title>
+					<v-card-title>
+						Salary Distribution
+						<v-tooltip
+							activator="parent"
+							location="bottom"
+							max-width="400"
+						>
+							Chart plots salaries given to number of employees in
+							each department. Here, each stack for the given
+							salary represents positions in each company
+							department.
+						</v-tooltip>
+					</v-card-title>
 				</v-col>
 				<v-spacer></v-spacer>
 				<v-col cols="auto">
@@ -13,6 +25,9 @@
 						elevation="0"
 					>
 						Download
+						<v-tooltip activator="parent" location="bottom">
+							Opens a PNG image in new tab/window
+						</v-tooltip>
 					</v-btn>
 				</v-col>
 			</v-row>
