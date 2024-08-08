@@ -5,30 +5,6 @@
       "username": "admin",
       "password": "U2FsdGVkX189IWWfHmZXa3KU0IHo0iW6Z2je8PTrsn8=",
       "role": "admin"
-    },
-    {
-      "id": "cb27d952-2779-41e7-bfd5-944e8202a2c2",
-      "username": "user1",
-      "password": "U2FsdGVkX1+z/areYWlenee5ZtvaOxQaHb1VsvcvvpI=",
-      "role": "user"
-    },
-    {
-      "id": "592d24d7-d0cc-45f5-82b4-b1b68b398b46",
-      "username": "testuser",
-      "password": "U2FsdGVkX1/HUwyt2u4YNb66El0DG/93IoAEP5/wo58=",
-      "role": "user"
-    },
-    {
-      "id": "f5d8758a-3c4d-4c19-a09a-536b096a72af",
-      "username": "dashboarduser",
-      "password": "U2FsdGVkX1+MaaBd7vrQRcN6gf34JV1kZFT1x9/xAlw=",
-      "role": "user"
-    },
-    {
-      "id": "cc4245fb-812c-406f-ae6b-5f43c37a72f9",
-      "username": "testuser2",
-      "password": "U2FsdGVkX19eOKKKjETSdsmrAxT015Yz1F9KrOsW66w=",
-      "role": "user"
     }
   ],
   "data": [
